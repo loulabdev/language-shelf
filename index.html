@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>사서의 언어 서재 📚</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6b4c9a">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="언어 서재">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600&family=Playfair+Display:wght@500;700&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -643,9 +649,9 @@ body {
   <button class="tab-btn" onclick="switchTab('hanja', this)">漢 한자</button>
   <button class="tab-btn" onclick="switchTab('chinese', this)">🇨🇳 중국어</button>
   <button class="tab-btn" onclick="switchTab('japanese', this)">🇯🇵 일본어</button>
+  <button class="tab-btn" onclick="switchTab('french', this)">🇫🇷 프랑스어</button>
   <button class="tab-btn" onclick="switchTab('quiz', this)">🃏 퀴즈</button>
   <button class="tab-btn" onclick="switchTab('favorites', this)">⭐ 즐겨찾기</button>
-  <button class="tab-btn" onclick="switchTab('french', this)">🇫🇷 프랑스어</button>
   <button class="tab-btn" onclick="switchTab('myscript', this)">✍️ 내 스크립트</button>
 </div>
 
@@ -2272,6 +2278,15 @@ window.addEventListener('load', () => {
 });
 
 init();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js')
+      .then(r => console.log('SW registered'))
+      .catch(e => console.log('SW failed:', e));
+  });
+}
 </script>
 </body>
 </html>
