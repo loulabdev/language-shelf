@@ -543,6 +543,7 @@ body {
   .mcq-options { grid-template-columns: 1fr; }
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
 </head>
 <body>
 
@@ -1349,90 +1350,78 @@ const STROKE_DATA = {
 function openStrokeModal(char) {
   const data = STROKE_DATA[char] || { strokes: '?', meaning: '데이터 없음', composition: '-', note: '획순 데이터가 없는 한자입니다.' };
   const modal = document.getElementById('hanjaModal');
-  document.getElementById('hanjaModalContent').innerHTML = `
-    <div style="text-align:center;margin-bottom:1rem;">
-      <span style="font-size:3.5rem;color:var(--ink);line-height:1;">${char}</span>
-      <div style="font-size:0.8rem;color:var(--ink3);margin-top:0.3rem;">총 ${data.strokes}획</div>
-    </div>
-    <div class="stroke-canvas-wrap">
-      <canvas id="strokeCanvas" width="240" height="240"></canvas>
-    </div>
-    <div class="stroke-info">
-      <div class="stroke-info-item"><div class="stroke-info-label">의미</div><div class="stroke-info-val">${data.meaning}</div></div>
-      <div class="stroke-info-item"><div class="stroke-info-label">구성</div><div class="stroke-info-val" style="font-size:0.75rem;">${data.composition}</div></div>
-    </div>
-    <div style="margin-top:0.75rem;font-size:0.78rem;color:var(--ink2);background:var(--bg);padding:0.6rem 0.8rem;border-radius:var(--radius-sm);">✏️ ${data.note}</div>
-    <div style="display:flex;gap:0.5rem;margin-top:1rem;justify-content:center;">
-      <button class="sh-btn primary" onclick="animateStroke('${char}')">▶ 애니메이션</button>
-      <button class="sh-btn teal" onclick="speakZH('${encodeURIComponent(char)}')">🔊 중국어</button>
-      <button class="sh-btn" style="background:var(--accent2);color:#fff;border-color:var(--accent2);" onclick="speakJA('${encodeURIComponent(char)}')">🔊 일본어</button>
-    </div>
-  `;
+  const enc = encodeURIComponent(char);
+  document.getElementById('hanjaModalContent').innerHTML =
+    '<div style="text-align:center;margin-bottom:1rem;">' +
+      '<span style="font-size:3rem;color:var(--ink);line-height:1;">' + char + '</span>' +
+      '<div style="font-size:0.8rem;color:var(--ink3);margin-top:0.3rem;">총 ' + data.strokes + '획</div>' +
+    '</div>' +
+    '<div class="stroke-canvas-wrap" style="position:relative;">' +
+      '<div id="hanziWriterTarget" style="width:240px;height:240px;"></div>' +
+    '</div>' +
+    '<div class="stroke-info" style="margin-top:0.75rem;">' +
+      '<div class="stroke-info-item"><div class="stroke-info-label">의미</div><div class="stroke-info-val">' + data.meaning + '</div></div>' +
+      '<div class="stroke-info-item"><div class="stroke-info-label">구성</div><div class="stroke-info-val" style="font-size:0.75rem;">' + data.composition + '</div></div>' +
+    '</div>' +
+    '<div style="margin-top:0.75rem;font-size:0.78rem;color:var(--ink2);background:var(--bg);padding:0.6rem 0.8rem;border-radius:var(--radius-sm);">✏️ ' + data.note + '</div>' +
+    '<div style="display:flex;gap:0.5rem;margin-top:1rem;justify-content:center;flex-wrap:wrap;">' +
+      '<button class="sh-btn primary" onclick="hwAnimate()">▶ 획순 보기</button>' +
+      '<button class="sh-btn" onclick="hwQuiz()">✏️ 직접 써보기</button>' +
+      '<button class="sh-btn teal" onclick="speakZH('' + enc + '')">🔊 중국어</button>' +
+      '<button class="sh-btn" style="background:var(--accent2);color:#fff;border-color:var(--accent2);" onclick="speakJA('' + enc + '')">🔊 일본어</button>' +
+    '</div>' +
+    '<div id="hwStatus" style="text-align:center;font-size:0.75rem;color:var(--ink3);margin-top:0.5rem;">▶ 버튼을 눌러 획순을 확인하세요</div>';
   modal.classList.add('open');
-  setTimeout(() => drawStrokeGuide(char), 50);
+  setTimeout(() => initHanziWriter(char), 100);
 }
 
-function closeStrokeModal() {
-  document.getElementById('hanjaModal').classList.remove('open');
-}
+let _hw = null;
 
-document.getElementById('hanjaModal').addEventListener('click', function(e) {
-  if (e.target === this) closeStrokeModal();
-});
-
-function drawStrokeGuide(char) {
-  const canvas = document.getElementById('strokeCanvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const w = 240, h = 240;
-  ctx.clearRect(0, 0, w, h);
-  // grid
-  ctx.strokeStyle = 'rgba(107,76,154,0.15)';
-  ctx.lineWidth = 0.5;
-  ctx.beginPath(); ctx.moveTo(w/2,0); ctx.lineTo(w/2,h); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(0,h/2); ctx.lineTo(w,h/2); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(w,h); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(w,0); ctx.lineTo(0,h); ctx.stroke();
-  ctx.strokeStyle = 'rgba(107,76,154,0.2)';
-  ctx.lineWidth = 1;
-  ctx.strokeRect(4,4,w-8,h-8);
-  // character
-  ctx.font = '160px serif';
-  ctx.fillStyle = 'rgba(26,26,46,0.12)';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText(char, w/2, h/2+8);
-}
-
-function animateStroke(char) {
-  const canvas = document.getElementById('strokeCanvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const w = 240, h = 240;
-  let progress = 0;
-  drawStrokeGuide(char);
-  const frames = 60;
-  function frame() {
-    if (progress > frames) return;
-    ctx.clearRect(0,0,w,h);
-    drawStrokeGuide(char);
-    const alpha = Math.min(progress / frames, 1);
-    ctx.font = '160px serif';
-    ctx.fillStyle = `rgba(107,76,154,${alpha * 0.9})`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    // clip animation: reveal top-to-bottom
-    ctx.save();
-    ctx.beginPath();
-    ctx.rect(0, 0, w, h * alpha);
-    ctx.clip();
-    ctx.fillText(char, w/2, h/2+8);
-    ctx.restore();
-    progress++;
-    requestAnimationFrame(frame);
+function initHanziWriter(char) {
+  const target = document.getElementById('hanziWriterTarget');
+  if (!target || typeof HanziWriter === 'undefined') return;
+  target.innerHTML = '';
+  try {
+    _hw = HanziWriter.create('hanziWriterTarget', char, {
+      width: 240,
+      height: 240,
+      padding: 20,
+      strokeColor: '#6b4c9a',
+      radicalColor: '#2a7c6f',
+      strokeAnimationSpeed: 1,
+      delayBetweenStrokes: 200,
+      showCharacter: true,
+      showOutline: true,
+      outlineColor: 'rgba(107,76,154,0.15)',
+    });
+  } catch(e) {
+    document.getElementById('hanziWriterTarget').innerHTML =
+      '<div style="display:flex;align-items:center;justify-content:center;height:240px;font-size:5rem;color:rgba(107,76,154,0.5);">' + char + '</div>';
+    const st = document.getElementById('hwStatus');
+    if(st) st.textContent = '이 한자는 획순 데이터가 없습니다.';
   }
-  frame();
 }
+
+function hwAnimate() {
+  if (!_hw) return;
+  const st = document.getElementById('hwStatus');
+  if(st) st.textContent = '✍️ 획순 재생 중...';
+  _hw.animateCharacter({
+    onComplete: function() { if(st) st.textContent = '✅ 완료! 다시 보려면 ▶ 버튼을 누르세요.'; }
+  });
+}
+
+function hwQuiz() {
+  if (!_hw) return;
+  const st = document.getElementById('hwStatus');
+  if(st) st.textContent = '✏️ 직접 써보세요!';
+  _hw.quiz({
+    onMistake: function(s) { if(st) st.textContent = '❌ 획 ' + s.strokeNum + ' 다시 시도!'; },
+    onCorrectStroke: function(s) { if(st) st.textContent = '✅ 획 ' + s.strokeNum + ' 정확해요!'; },
+    onComplete: function(s) { if(st) st.textContent = '🎉 완성! 실수: ' + s.totalMistakes + '번'; }
+  });
+}
+
 
 // ===== FAVORITES ENGINE =====
 let favorites = JSON.parse(localStorage.getItem('libFavorites') || '[]');
