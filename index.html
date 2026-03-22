@@ -536,6 +536,89 @@ body {
 .fav-item-sub { font-size: 0.75rem; color: var(--ink3); margin-top: 0.15rem; }
 .fav-item-ko { font-size: 0.78rem; color: var(--ink2); margin-top: 0.1rem; }
 
+/* ===== 반응형 - 모바일 (~ 480px) ===== */
+@media(max-width:480px){
+  /* 헤더 */
+  .header { padding: 1rem 1rem 0.75rem; }
+  .header-title { font-size: 1.2rem; }
+  .header-sub { font-size: 0.68rem; }
+
+  /* 탭 - 항상 이모지+텍스트 (가로 스크롤) */
+  .tab-btn {
+    padding: 0.55rem 0.8rem;
+    font-size: 0.72rem;
+  }
+
+  /* 콘텐츠 패딩 */
+  .tab-content { padding: 1rem 0.75rem; }
+  .card { padding: 1rem 1rem; }
+
+  /* 카드/글자 크기 */
+  .card-title { font-size: 0.95rem; }
+  .conv-item { grid-template-columns: 1fr; }
+  .conv-main { font-size: 0.95rem; }
+  .conv-ko { font-size: 0.8rem; }
+
+  /* 한자 그리드 - 모바일: 2열 */
+  .hanja-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+  .hanja-char { font-size: 2rem; }
+
+  /* 퀴즈/플래시카드 */
+  .flashcard { height: 160px; }
+  .fc-main { font-size: 1.5rem; }
+  .mcq-options { grid-template-columns: 1fr; }
+  .quiz-source-tabs { gap: 0.3rem; }
+  .qsrc-btn { font-size: 0.68rem; padding: 0.25rem 0.6rem; }
+
+  /* OPIc 토픽 그리드 */
+  .topic-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+  .topic-emoji { font-size: 1.2rem; }
+  .topic-name { font-size: 0.75rem; }
+
+  /* 버튼 */
+  .speak-btn { font-size: 0.72rem; padding: 0.38rem 0.8rem; }
+  .sh-btn { font-size: 0.72rem; padding: 0.3rem 0.7rem; }
+  .level-tab { font-size: 0.7rem; padding: 0.28rem 0.7rem; }
+
+  /* 스크립트 박스 */
+  .script-text { font-size: 0.82rem; }
+  .script-ko { font-size: 0.75rem; }
+}
+
+/* ===== 반응형 - 태블릿 (481px ~ 768px) ===== */
+@media(min-width:481px) and (max-width:768px){
+  .header-title { font-size: 1.5rem; }
+  .tab-btn { padding: 0.7rem 1rem; font-size: 0.75rem; }
+  .tab-content { padding: 1.25rem 1rem; }
+
+  /* 한자 그리드 - 태블릿: 3열 */
+  .hanja-grid { grid-template-columns: repeat(3, 1fr); }
+
+  /* 퀴즈 */
+  .flashcard { height: 180px; }
+  .fc-main { font-size: 1.75rem; }
+  .mcq-options { grid-template-columns: 1fr 1fr; }
+
+  /* OPIc 토픽 */
+  .topic-grid { grid-template-columns: repeat(3, 1fr); }
+
+  .conv-item { grid-template-columns: 1fr; }
+}
+
+/* ===== 반응형 - PC (769px ~) ===== */
+@media(min-width:769px){
+  /* 한자 그리드 - PC: 4열 */
+  .hanja-grid { grid-template-columns: repeat(4, 1fr); }
+
+  /* 퀴즈 플래시카드 */
+  .flashcard { height: 200px; }
+  .fc-main { font-size: 2rem; }
+
+  /* OPIc 토픽 */
+  .topic-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+}
+
+/* ===== 기존 호환 ===== */
 @media(max-width:600px){
   .conv-item { grid-template-columns: 1fr; }
   .header-title { font-size: 1.4rem; }
@@ -558,10 +641,11 @@ body {
   <button class="tab-btn" onclick="switchTab('pron', this)">🇬🇧 RP 발음</button>
   <button class="tab-btn" onclick="switchTab('english', this)">🗣️ 영국 회화</button>
   <button class="tab-btn" onclick="switchTab('hanja', this)">漢 한자</button>
-  <button class="tab-btn" onclick="switchTab('chinese', this)">🇨🇳 중국어 회화</button>
-  <button class="tab-btn" onclick="switchTab('japanese', this)">🇯🇵 일본어 회화</button>
+  <button class="tab-btn" onclick="switchTab('chinese', this)">🇨🇳 중국어</button>
+  <button class="tab-btn" onclick="switchTab('japanese', this)">🇯🇵 일본어</button>
   <button class="tab-btn" onclick="switchTab('quiz', this)">🃏 퀴즈</button>
   <button class="tab-btn" onclick="switchTab('favorites', this)">⭐ 즐겨찾기</button>
+  <button class="tab-btn" onclick="switchTab('french', this)">🇫🇷 프랑스어</button>
   <button class="tab-btn" onclick="switchTab('myscript', this)">✍️ 내 스크립트</button>
 </div>
 
@@ -660,6 +744,7 @@ body {
       <button class="qsrc-btn" onclick="setQuizSrc('zh',this)">🇨🇳 중국어</button>
       <button class="qsrc-btn" onclick="setQuizSrc('ja',this)">🇯🇵 일본어</button>
       <button class="qsrc-btn" onclick="setQuizSrc('en',this)">🇬🇧 영어</button>
+      <button class="qsrc-btn" onclick="setQuizSrc('fr',this)">🇫🇷 프랑스어</button>
     </div>
     <div class="quiz-progress"><div class="quiz-progress-bar" id="quizProgressBar" style="width:0%"></div></div>
     <div id="quizArea"></div>
@@ -680,6 +765,18 @@ body {
     <div class="card-title">⭐ 즐겨찾기</div>
     <p style="font-size:0.82rem;color:var(--ink2);margin-bottom:1rem;">각 항목 옆 ⭐ 버튼으로 저장한 항목들이 여기에 모입니다. localStorage에 저장되어 앱을 닫아도 유지됩니다.</p>
     <div id="favList"></div>
+  </div>
+</div>
+
+<!-- ===== FRENCH ===== -->
+<div id="tab-french" class="tab-content">
+  <div class="card">
+    <div class="card-title">🇫🇷 프랑스어 기본 회화 — 도서관 & 일상</div>
+    <p style="font-size:0.82rem;color:var(--ink2);margin-bottom:1rem;line-height:1.6;">
+      문장을 클릭하면 프랑스어 발음으로 듣고 따라 말할 수 있습니다. 발음 팁을 참고하세요.
+    </p>
+    <input class="search-bar" placeholder="검색..." oninput="filterConvFr(this.value)">
+    <div id="frenchList"></div>
   </div>
 </div>
 
@@ -1186,6 +1283,82 @@ const EN_DATA = [
   ]},
 ];
 
+
+// ===== FRENCH CONVERSATION DATA =====
+const FR_DATA = [
+  { cat: '📚 도서관 & 업무', items: [
+    { fr: 'Où se trouve la bibliothèque ?', read: '우 스 트루브 라 비블리오테크 ?', ko: '도서관이 어디에 있나요?', tip: 'où /u/ — 입술 둥글게. bibliothèque /biblij\u0254tɛk/' },
+    { fr: 'Je voudrais emprunter ce livre.', read: '즈 부드레 엉프렁테 스 리브르.', ko: '이 책을 빌리고 싶습니다.', tip: 'voudrais — vouloir 조건법. emprunter /ɑ̃prɥ̃te/' },
+    { fr: 'Quand dois-je rendre ce livre ?', read: '껑 두아-즈 렁드르 스 리브르 ?', ko: '이 책을 언제 반납해야 하나요?', tip: 'dois-je — 도치 의문문. rendre /rɑ̃dr/' },
+    { fr: 'Avez-vous ce titre en stock ?', read: '아베-부 스 티트르 엉 스톡 ?', ko: '이 제목을 소장하고 있나요?', tip: 'avez-vous — 격식 의문문. titre /titr/' },
+    { fr: 'Je suis bibliothécaire.', read: '즈 쉬 비블리오테케르.', ko: '저는 사서입니다.', tip: 'bibliothécaire /biblijtekɛr/ — 7음절' },
+    { fr: 'Veuillez présenter votre carte de bibliothèque.', read: '뵈이에 프레정테 보트르 카르트 드 비블리오테크.', ko: '도서관 카드를 제시해 주세요.', tip: 'veuillez — 격식 명령형 (vouloir). 가장 정중한 표현' },
+    { fr: 'La salle de lecture est au deuxième étage.', read: '라 살 드 렉튀르 에 오 되지엠 에타쥬.', ko: '열람실은 2층에 있습니다.', tip: 'deuxième /døzjɛm/ — 서수. étage /etaʒ/' },
+    { fr: 'Ce livre est actuellement emprunté.', read: '스 리브르 에 악튀엘르멍 엉프렁테.', ko: '이 책은 현재 대출 중입니다.', tip: 'actuellement /aktɥɛlmɑ̃/ — 현재, 지금' },
+    { fr: 'Puis-je prolonger le prêt ?', read: '퓌-즈 프롤롱제 르 프레 ?', ko: '대출 연장이 가능한가요?', tip: 'prêt /prɛ/ — 대출. prolonger /prɔlɔ̃ʒe/' },
+    { fr: 'Où puis-je trouver le catalogue en ligne ?', read: '우 퓌-즈 트루베 르 카탈로그 엉 리뉴 ?', ko: '온라인 목록은 어디서 찾을 수 있나요?', tip: 'en ligne /ɑ̃ liɲ/ — 온라인으로' },
+    { fr: 'Pouvez-vous me réserver ce document ?', read: '푸베-부 므 레제르베 스 도퀴멍 ?', ko: '이 자료를 예약해 주시겠어요?', tip: 'réserver /rezɛrve/ — 예약하다' },
+    { fr: 'Les photocopieurs sont au rez-de-chaussée.', read: '레 포토코피외르 송 오 레-드-쇼세.', ko: '복사기는 1층에 있습니다.', tip: 'rez-de-chaussée /redʃose/ — 1층 (영국 ground floor)' },
+  ]},
+  { cat: '🔍 정보 검색 & 참고서비스', items: [
+    { fr: 'Comment utiliser cette base de données ?', read: '코멍 위틸리제 세트 바즈 드 도네 ?', ko: '이 데이터베이스를 어떻게 사용하나요?', tip: 'base de données /baz də done/ — 데이터베이스' },
+    { fr: 'Quel type de document recherchez-vous ?', read: '켈 티프 드 도퀴멍 르쉐르쉐-부 ?', ko: '어떤 유형의 자료를 찾고 계신가요?', tip: '참고 인터뷰 핵심 표현. recherchez /rəʃɛrʃe/' },
+    { fr: 'Je vais vous aider à trouver des ressources.', read: '즈 베 부 제데 아 트루베 데 레수르스.', ko: '자료를 찾는 것을 도와드리겠습니다.', tip: 'aider /ede/ — 돕다. ressources /rəsurs/' },
+    { fr: 'Cet article est disponible en accès libre.', read: '세 아르티클 에 디스포니블 엉 악세 리브르.', ko: '이 논문은 오픈액세스로 이용 가능합니다.', tip: 'accès libre /aksɛ libr/ — 오픈액세스' },
+    { fr: 'Nous proposons un service de prêt interbibliothèques.', read: '누 프로포종 엉 세르비스 드 프레 엥테르비블리오테크.', ko: '상호대차 서비스를 제공합니다.', tip: 'prêt interbibliothèques — 상호대차. 줄여서 PIB' },
+    { fr: 'Puis-je télécharger cet article ?', read: '퓌-즈 텔레샤르제 세 아르티클 ?', ko: '이 논문을 다운로드할 수 있나요?', tip: 'télécharger /teleʃarʒe/ — 다운로드하다' },
+    { fr: 'Veuillez me préciser votre sujet de recherche.', read: '뵈이에 므 프레시제 보트르 쉬제 드 르쉐르쉬.', ko: '연구 주제를 구체적으로 말씀해 주세요.', tip: 'préciser /presize/ — 명확히 하다' },
+    { fr: 'Cette ressource nécessite un identifiant.', read: '세트 레수르스 네세시트 엉 니덩티피앙.', ko: '이 자료는 계정이 필요합니다.', tip: 'identifiant /idɑ̃tifjɑ̃/ — 아이디, 계정' },
+    { fr: 'Je peux vous faire une recherche bibliographique.', read: '즈 쁘 부 페르 윈 르쉐르쉬 비블리오그라피크.', ko: '문헌 검색을 해드릴 수 있습니다.', tip: 'bibliographique /bibliografik/ — 서지의' },
+    { fr: 'Les ouvrages de référence ne sont pas empruntables.', read: '레 주브라쥬 드 레페렁스 느 송 파 엉프렁타블.', ko: '참고도서는 대출이 불가합니다.', tip: 'empruntable /ɑ̃prɥ̃tabl/ — 대출 가능한' },
+  ]},
+  { cat: '💾 데이터 관리 & 연구지원', items: [
+    { fr: "Qu'est-ce qu'un plan de gestion des données ?", read: '케스-크 엉 플랑 드 제스티옹 데 도네 ?', ko: '데이터 관리 계획이란 무엇인가요?', tip: 'gestion des données /ʒɛstjɔ̃ de done/ — 데이터 관리' },
+    { fr: 'Nous soutenons la publication en accès ouvert.', read: '누 수트농 라 퓌블리카시옹 엉 악세 우베르.', ko: '오픈액세스 출판을 지원합니다.', tip: 'accès ouvert /aksɛ uvɛr/ — 오픈액세스 (프랑스어 표현)' },
+    { fr: 'Les métadonnées sont essentielles pour la découvrabilité.', read: '레 메타도네 송 에성시엘 푸르 라 데쿠브라빌리테.', ko: '메타데이터는 발견 가능성에 필수적입니다.', tip: 'métadonnées /metadɔne/ — 메타데이터' },
+    { fr: 'Votre jeu de données peut être déposé dans notre dépôt.', read: '보트르 즈 드 도네 쁘 에트르 데포제 덩 노트르 데포.', ko: '데이터셋은 저희 리포지터리에 등록할 수 있습니다.', tip: 'jeu de données /ʒø də done/ — 데이터셋. dépôt /depo/ — 리포지터리' },
+    { fr: "Veuillez respecter les droits d'auteur sur les données.", read: '뵈이에 레스펙테 레 드루아 도퇴르 쉬르 레 도네.', ko: '데이터의 저작권을 준수해 주세요.', tip: "droits d'auteur /drwa dotœr/ — 저작권" },
+    { fr: 'Les principes FAIR guident notre gestion des données.', read: '레 프렝시프 FAIR 기드 노트르 제스티옹 데 도네.', ko: 'FAIR 원칙이 우리의 데이터 관리를 안내합니다.', tip: 'FAIR — Facile à trouver, Accessible, Interopérable, Réutilisable' },
+  ]},
+  { cat: '💬 일상 & 인사 회화', items: [
+    { fr: 'Bonjour ! Enchanté(e) de vous rencontrer.', read: '봉주르 ! 엉샹테 드 부 렁콩트레.', ko: '안녕하세요! 만나서 반갑습니다.', tip: 'enchanté /ɑ̃ʃɑ̃te/ — 반갑다. e를 붙이면 여성형' },
+    { fr: 'Comment vous appelez-vous ?', read: '코멍 부 자플레-부 ?', ko: '성함이 어떻게 되세요?', tip: '격식체 이름 묻기. appeler /aple/' },
+    { fr: 'Je vous remercie de votre aide.', read: '즈 부 르메르시 드 보트르 에드.', ko: '도움 주셔서 감사합니다.', tip: 'remercier /rəmɛrsje/ — 감사하다. 격식 표현' },
+    { fr: 'Pourriez-vous parler plus lentement ?', read: '푸리에-부 파를레 플뤼 렁트멍 ?', ko: '조금 더 천천히 말씀해 주시겠어요?', tip: 'pourriez — pouvoir 조건법. lentement /lɑ̃tmɑ̃/' },
+    { fr: 'Je ne comprends pas très bien.', read: '즈 느 콩프렁 파 트레 비앙.', ko: '잘 이해하지 못했습니다.', tip: 'comprendre /kɔ̃prɑ̃dr/ — 이해하다. ne...pas 부정' },
+    { fr: 'Veuillez patienter un instant.', read: '뵈이에 파시엉테 엉 냉스탕.', ko: '잠깐만 기다려 주세요.', tip: 'patienter /pasjɑ̃te/ — 기다리다. instant /ɛ̃stɑ̃/' },
+    { fr: "N'hésitez pas à me contacter si vous avez des questions.", read: '네지테 파 아 므 콩탁테 시 부 자베 데 케스티옹.', ko: '질문이 있으시면 언제든지 연락해 주세요.', tip: "n'hésitez pas — 망설이지 마세요. 격식 권유 표현" },
+    { fr: 'Je vous souhaite une bonne recherche !', read: '즈 부 수에트 윈 본 르쉐르쉬 !', ko: '연구 잘 되기를 바랍니다!', tip: 'souhaiter /swɛte/ — 바라다. 연구자 격려 표현' },
+    { fr: 'Au revoir et bonne journée !', read: '오 르부아르 에 본 주르네 !', ko: '안녕히 가세요, 좋은 하루 되세요!', tip: 'au revoir /o rəvwar/ — 작별 인사. bonne journée — 좋은 하루' },
+    { fr: 'Je suis désolé(e), je ne parle pas bien français.', read: '즈 쉬 데졸레, 즈 느 파를 파 비앙 프렁세.', ko: '죄송합니다, 프랑스어를 잘 못합니다.', tip: 'désolé /dezɔle/ — 미안한. e 붙이면 여성형' },
+    { fr: "Pourriez-vous répéter, s'il vous plaît ?", read: '푸리에-부 레페테, 실 부 플레 ?', ko: '다시 한번 말씀해 주시겠어요?', tip: "s'il vous plaît /sil vu plɛ/ — 정중한 부탁 표현" },
+    { fr: 'Merci beaucoup pour votre patience.', read: '메르시 보쿠 푸르 보트르 파시엉스.', ko: '기다려 주셔서 대단히 감사합니다.', tip: 'beaucoup /boku/ — 많이. patience /pasjɑ̃s/' },
+  ]},
+  { cat: '📊 전문 용어 & 학술 표현', items: [
+    { fr: 'Quelle est la cote de ce document ?', read: '켈 에 라 코트 드 스 도퀴멍 ?', ko: '이 자료의 청구기호는 무엇인가요?', tip: 'cote /kot/ — 청구기호, 서가 번호' },
+    { fr: 'Comment choisir les descripteurs ?', read: '코멍 슈아지르 레 데스크립퇴르 ?', ko: '주제어는 어떻게 선택하나요?', tip: 'descripteur /dɛskriptœr/ — 주제어, 디스크립터' },
+    { fr: 'Les périodiques sont classés par ordre alphabétique.', read: '레 페리오디크 송 클라세 파르 오르드르 알파베티크.', ko: '정기간행물은 알파벳순으로 정리되어 있습니다.', tip: 'périodique /perijodik/ — 정기간행물. alphabétique /alfabetik/' },
+    { fr: 'Nous utilisons la classification décimale de Dewey.', read: '누 위틸리종 라 클라시피카시옹 데시말 드 듀이.', ko: '듀이 십진분류법을 사용합니다.', tip: 'classification décimale /klasifikasjɔ̃ desimal/ — 십진분류법' },
+    { fr: 'Ce fonds est numérisé et accessible en ligne.', read: '스 퐁 에 뉘메리제 에 악세시블 엉 리뉴.', ko: '이 컬렉션은 디지털화되어 온라인으로 접근 가능합니다.', tip: 'fonds /fɔ̃/ — 컬렉션, 장서. numérisé /nymerize/' },
+    { fr: 'Veuillez indiquer le format de citation souhaité.', read: '뵈이에 냉디케 르 포르마 드 시타시옹 수에테.', ko: '원하시는 인용 형식을 알려주세요.', tip: 'citation /sitasjɔ̃/ — 인용. format /fɔrma/' },
+    { fr: 'Notre dépôt institutionnel est ouvert à tous les chercheurs.', read: '노트르 데포 냉스티튀시오넬 에 우베르 아 투 레 쉐르쉐르.', ko: '기관 리포지터리는 모든 연구자에게 열려 있습니다.', tip: 'dépôt institutionnel /depo ɛ̃stitysjɔnɛl/ — 기관 리포지터리' },
+    { fr: "L'accès ouvert favorise la diffusion du savoir.", read: '락세 우베르 파보리즈 라 디퓌지옹 뒤 사부아르.', ko: '오픈액세스는 지식의 확산을 촉진합니다.', tip: 'diffusion /difyzjɔ̃/ — 확산. savoir /savwar/ — 지식' },
+    { fr: 'Avez-vous un identifiant ORCID ?', read: '아베-부 엉 니덩티피앙 오르키드 ?', ko: 'ORCID 식별자를 갖고 계신가요?', tip: 'ORCID — 연구자 고유식별자. identifiant /idɑ̃tifjɑ̃/' },
+    { fr: 'Ce journal est indexé dans Web of Science.', read: '스 주르날 에 냉덱세 덩 웹 오브 사이언스.', ko: '이 저널은 Web of Science에 색인됩니다.', tip: 'indexé /ɛ̃dɛkse/ — 색인된. journal /ʒurnal/' },
+  ]},
+  { cat: '🏛️ 도서관 행정 & 운영', items: [
+    { fr: 'La bibliothèque est ouverte de neuf heures à vingt et une heures.', read: '라 비블리오테크 에 우베르트 드 뇌브 외르 아 뱅테윈 외르.', ko: '도서관은 오전 9시부터 오후 9시까지 개관합니다.', tip: 'ouverte /uvɛrt/ — 열려 있는 (여성형). vingt et une /vɛ̃teyn/' },
+    { fr: "La bibliothèque est fermée aujourd'hui.", read: '라 비블리오테크 에 페르메 오주르뒤이.', ko: '오늘 도서관은 휴관입니다.', tip: 'fermée /fɛrme/ — 닫혀 있는. fermé 남성형' },
+    { fr: 'Veuillez maintenir le silence dans la salle.', read: '뵈이에 멩트니르 르 실렁스 덩 라 살.', ko: '열람실에서는 조용히 해주세요.', tip: 'maintenir /mɛ̃tnir/ — 유지하다. silence /silɑ̃s/' },
+    { fr: 'La consommation de nourriture est interdite.', read: '라 콩소마시옹 드 누리튀르 에 냉테르디트.', ko: '음식물 섭취는 금지되어 있습니다.', tip: 'interdite /ɛ̃tɛrdit/ — 금지된 (여성형). consommation /kɔ̃sɔmasjɔ̃/' },
+    { fr: 'Merci de mettre votre téléphone en mode silencieux.', read: '메르시 드 메트르 보트르 텔레폰 엉 모드 실렁시외.', ko: '휴대폰을 진동 모드로 해주세요.', tip: 'silencieux /silɑ̃sjø/ — 무음의. mode /mod/' },
+    { fr: "Les nouvelles acquisitions sont exposées à l'entrée.", read: '레 누벨 악시지시옹 송 텍스포제 아 렁트레.', ko: '신착자료는 입구에 전시되어 있습니다.', tip: 'acquisitions /akizisjɔ̃/ — 수집자료. entrée /ɑ̃tre/' },
+    { fr: 'Nous vous invitons à remplir notre questionnaire de satisfaction.', read: '누 부 냉비통 아 렁플리르 노트르 케스티오네르 드 사티스팍시옹.', ko: '만족도 설문지를 작성해 주세요.', tip: 'questionnaire /kɛstjɔnɛr/ — 설문지. satisfaction /satisfaksjɔ̃/' },
+    { fr: 'Le WiFi est disponible gratuitement dans tout le bâtiment.', read: '르 위피 에 디스포니블 그라튀이트멍 덩 투 르 바티멍.', ko: '건물 전체에서 무료 와이파이를 이용할 수 있습니다.', tip: 'gratuitement /gratɥitmɑ̃/ — 무료로. bâtiment /batimɑ̃/' },
+    { fr: "Les objets trouvés sont déposés à l'accueil.", read: '레 조브제 트루베 송 데포제 아 라퀴에이.', ko: '분실물은 안내데스크에 보관되어 있습니다.', tip: "objets trouvés /ɔbʒɛ truve/ — 분실물. accueil /akœj/" },
+    { fr: "Pour tout renseignement, adressez-vous au bureau d'information.", read: '푸르 투 렁세뉴멍, 아드레세-부 오 뷔로 댕포르마시옹.', ko: '모든 문의는 안내데스크로 문의해 주세요.', tip: "renseignement /rɑ̃sɛɲmɑ̃/ — 문의, 안내. bureau d'information — 안내데스크" },
+  ]},
+];
 // ===== INTERVIEW DATA =====
 const INTERVIEW_DATA = [
   { q: 'Why did you decide to pursue a career in librarianship?', tag: '동기', en: `I have spent over a decade in research administration, which gave me a deep appreciation for how critical information management is to the success of research. I realised that the librarian role — particularly in a specialised or research library — is where I could make the most meaningful contribution. I wanted to formalise that interest through a professional qualification, which I am currently completing.`, ko: `10년 이상의 연구관리 경험에서 정보 관리의 중요성을 인식했고, 전문도서관 사서가 가장 큰 기여를 할 수 있는 역할임을 깨달았습니다. 현재 자격증 과정을 이수하며 공식적으로 전환을 준비 중입니다.` },
@@ -1217,6 +1390,7 @@ function buildDeck(src) {
   if (src === 'zh') return ZH_DATA.flatMap(c => c.items.map(i => ({ front: i.zh, back: `${i.py}\n${i.ko}`, speak: i.zh, lang: 'zh-CN' })));
   if (src === 'ja') return JA_DATA.flatMap(c => c.items.map(i => ({ front: i.ja, back: `${i.read}\n${i.ko}`, speak: i.ja, lang: 'ja-JP' })));
   if (src === 'en') return EN_DATA.flatMap(c => c.items.map(i => ({ front: i.en, back: `${i.ipa}\n${i.ko}`, speak: i.en, lang: 'en-GB' })));
+  if (src === 'fr') return FR_DATA.flatMap(c => c.items.map(i => ({ front: i.fr, back: `${i.read}\n${i.ko}`, speak: i.fr, lang: 'fr-FR' })));
   return [];
 }
 
@@ -1447,7 +1621,7 @@ function renderFavList() {
     return;
   }
   const groups = {};
-  const labels = { zh:'🇨🇳 중국어', ja:'🇯🇵 일본어', en:'🇬🇧 영국 영어', hanja:'漢 한자', pron:'🔊 RP 발음' };
+  const labels = { zh:'🇨🇳 중국어', ja:'🇯🇵 일본어', en:'🇬🇧 영국 영어', fr:'🇫🇷 프랑스어', hanja:'漢 한자', pron:'🔊 RP 발음' };
   favorites.forEach(f => {
     const g = f.type; if (!groups[g]) groups[g] = [];
     groups[g].push(f);
@@ -1485,6 +1659,48 @@ let currentLevel = 'IM';
 let selectedTopic = null;
 
 // ===== INIT =====
+function renderConvFr(data) {
+  const container = document.getElementById('frenchList');
+  container.innerHTML = data.map((cat, ci) => `
+    <div class="conv-category">
+      <div class="conv-cat-title">${cat.cat}</div>
+      ${cat.items.map((item, ii) => {
+        const id = 'fr_' + ci + '_' + ii;
+        const fav = isFav('fr', id);
+        return `
+          <div class="conv-item" id="ci_${id}" onclick="toggleShadow('${id}','${encodeURIComponent(item.fr)}','${encodeURIComponent(item.read)}','${encodeURIComponent(item.ko)}','fr-FR',this)">
+            <div>
+              <div class="conv-main">${item.fr}</div>
+              <div class="conv-read">${item.read}</div>
+            </div>
+            <div>
+              <div class="conv-ko">${item.ko}</div>
+              <div class="conv-tip" style="display:flex;align-items:center;justify-content:space-between;">
+                <span>💡 ${item.tip} &nbsp;<span style="color:var(--accent2);font-size:0.7rem;">▶ 클릭해서 따라하기</span></span>
+                <button class="fav-btn ${fav?'active':''}" onclick="event.stopPropagation();toggleFav('fr','${id}','${encodeURIComponent(item.fr)}','${encodeURIComponent(item.read)}','${encodeURIComponent(item.ko)}','fr-FR',this)" title="즐겨찾기">${fav?'⭐':'☆'}</button>
+              </div>
+            </div>
+          </div>
+          <div class="shadow-panel" id="sp_${id}"></div>
+        `;
+      }).join('')}
+    </div>
+  `).join('');
+}
+
+function filterConvFr(q) {
+  const filtered = q
+    ? FR_DATA.map(cat => ({
+        ...cat,
+        items: cat.items.filter(item =>
+          item.fr.toLowerCase().includes(q.toLowerCase()) ||
+          item.ko.includes(q) || item.read.includes(q)
+        )
+      })).filter(cat => cat.items.length > 0)
+    : FR_DATA;
+  renderConvFr(filtered);
+}
+
 function init() {
   renderTopics();
   renderPron(PRON_DATA);
@@ -1492,6 +1708,7 @@ function init() {
   renderConv('zh', ZH_DATA);
   renderConv('ja', JA_DATA);
   renderConvEn(EN_DATA);
+  renderConvFr(FR_DATA);
   renderInterview();
   startQuiz();
   renderFavList();
