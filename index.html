@@ -1367,8 +1367,8 @@ function openStrokeModal(char) {
     '<div style="display:flex;gap:0.5rem;margin-top:1rem;justify-content:center;flex-wrap:wrap;">' +
       '<button class="sh-btn primary" onclick="hwAnimate()">▶ 획순 보기</button>' +
       '<button class="sh-btn" onclick="hwQuiz()">✏️ 직접 써보기</button>' +
-      '<button class="sh-btn teal" onclick="speakZH('' + enc + '')">🔊 중국어</button>' +
-      '<button class="sh-btn" style="background:var(--accent2);color:#fff;border-color:var(--accent2);" onclick="speakJA('' + enc + '')">🔊 일본어</button>' +
+      '<button class="sh-btn teal" onclick="speakZH(' + enc + ')">🔊 중국어</button>' +
+      '<button class="sh-btn" style="background:var(--accent2);color:#fff;border-color:var(--accent2);" onclick="speakJA(' + enc + ')">🔊 일본어</button>' +
     '</div>' +
     '<div id="hwStatus" style="text-align:center;font-size:0.75rem;color:var(--ink3);margin-top:0.5rem;">▶ 버튼을 눌러 획순을 확인하세요</div>';
   modal.classList.add('open');
