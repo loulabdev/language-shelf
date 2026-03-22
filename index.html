@@ -1586,7 +1586,7 @@ function showScript(id) {
     <div class="script-box">
       <div class="script-level">🇬🇧 English Script (${currentLevel})</div>
       <div class="script-text">${levelData.en}</div>
-      <button class="speak-btn" onclick="speak('${encodeURIComponent(levelData.en)}', 'en-GB')">🔊 RP 발음으로 듣기</button>
+      <button class="speak-btn" onclick="speakScript()">🔊 RP 발음으로 듣기</button>
     </div>
     <div class="script-box" style="margin-top:0.75rem; border-left-color: var(--teal);">
       <div class="script-level" style="color:var(--teal)">🇰🇷 한국어 요약</div>
@@ -1595,6 +1595,11 @@ function showScript(id) {
     <div class="tts-note">💡 TTS는 브라우저 Web Speech API를 사용합니다. en-GB 음성이 없으면 기본 영어 음성으로 재생됩니다.</div>
   `;
   card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  window._currentScriptText = levelData.en;
+}
+
+function speakScript() {
+  if (window._currentScriptText) speak(encodeURIComponent(window._currentScriptText), 'en-GB');
 }
 
 // ===== PRONUNCIATION =====
